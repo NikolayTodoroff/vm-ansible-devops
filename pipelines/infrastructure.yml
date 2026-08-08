@@ -12,18 +12,22 @@ parameters:
       - dev
       - prod
 
-trigger: none
-  # branches:
-  #   include:
-  #     - main
-  # paths:
-  #   include:
-  #     - infra/**
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - infra/**
 
 pool:
   vmImage: 'ubuntu-latest'
 
 variables:
+  - ${{ if eq(parameters.environment, 'dev') }}:
+    - group: vmansible-dev-vars
+  - ${{ if eq(parameters.environment, 'prod') }}:
+    - group: vmansible-prod-vars
   - name: terraformVersion
     value: '1.15.5'
   - name: workingDirectory
@@ -113,6 +117,9 @@ stages:
               workingDirectory: $(workingDirectory)
               environmentServiceNameAzureRM: 'service_connection'
               commandOptions: '-out=$(Pipeline.Workspace)/tfplan -var-file="$(tfVarsFile)"'
+            env:
+                TF_VAR_subscription_id: $(subscriptionId)
+                TF_VAR_pipeline_sp_object_id: $(pipelineSpObjectId)
 
           - task: PublishPipelineArtifact@1
             displayName: 'Publish Plan'

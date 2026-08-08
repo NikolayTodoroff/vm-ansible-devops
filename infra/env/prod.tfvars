@@ -1,3 +1,3 @@
-app_name              = "vmansible"
-environment           = "prod"
-location              = "westeurope"
+app_name    = "vmansible"
+environment = "prod"
+location    = "westeurope"
