@@ -14,6 +14,13 @@ An Ubuntu virtual machine provisioned with Terraform, configured with Ansible th
 
 ---
 
+## Pipeline Runs and Stages
+
+![Pipelines Runs](./docs/images/vm_ansible_pipeline_runs.png)
+![Pipelines Stages](./docs/images/vm_ansible_pipeline_stages.png)
+
+---
+
 ## Repository Structure
 
 ```
